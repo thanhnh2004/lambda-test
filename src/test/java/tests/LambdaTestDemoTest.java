@@ -128,7 +128,7 @@ public class LambdaTestDemoTest {
             ltOptions.put("accessKey", accesskey);
             ltOptions.put("build", "LambdaTest");
             ltOptions.put("project", "LambdaTest");
-            ltOptions.put("name", "Test: Search & Play YouTube Video");
+            ltOptions.put("name", "Test: Search & Play W3S Video");
             ltOptions.put("w3c", true);
             ltOptions.put("plugin", "java-testNG");
             ltOptions.put("timezone", "Ho_Chi_Minh");
@@ -147,53 +147,132 @@ public class LambdaTestDemoTest {
             wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         }
 
+//    @Test
+//    public void testSearchPlayToggleFullScreenAndReturnHomePage() throws InterruptedException {
+//        driver.get("https://www.youtube.com");
+//
+//        WebElement searchBox;
+//        try {
+//            searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.name("search_query")));
+//        } catch (Exception e) {
+//            searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#search")));
+//        }
+//        searchBox.sendKeys("LambdaTest tutorial");
+//        searchBox.sendKeys(Keys.RETURN);
+//
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("video-title")));
+//        List<WebElement> videoResult = driver.findElements(By.id("video-title"));
+//        Assert.assertFalse(videoResult.isEmpty(), "Không tìm thấy kết quả video!");
+//        videoResult.get(0).click();
+//        System.out.println("Video đã bắt đầu phát!");
+//
+//        // 🧪 Skip quảng cáo nếu có
+//        try {
+//            WebElement skipAd = wait.until(ExpectedConditions.elementToBeClickable(By.className("ytp-ad-skip-button")));
+//            skipAd.click();
+//            System.out.println("🎯 Quảng cáo đã được bỏ qua");
+//        } catch (Exception ignored) {
+//            System.out.println("✅ Không có quảng cáo để bỏ qua");
+//        }
+//
+//        // 🧪 Chờ player sẵn sàng
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("html5-video-player")));
+//
+//        // ✅ Click fullscreen bằng JS
+//        WebElement fullScreenButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".ytp-fullscreen-button")));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", fullScreenButton);
+//        System.out.println("Đã chuyển sang chế độ toàn màn hình");
+//        Thread.sleep(5000);
+//
+//        // ✅ Thoát fullscreen
+//        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+//        System.out.println("Đã thoát chế độ toàn màn hình");
+//        Thread.sleep(2000);
+//
+//        driver.get("https://www.youtube.com");
+//        System.out.println("Đã quay lại trang chủ");
+//    }
+
+//    @Test
+//    public void testHTML5VideoPlayFullscreenAndPause() throws InterruptedException {
+//        driver.get("https://www.w3schools.com/html/html5_video.asp");
+//
+//        // ✅ Đợi video xuất hiện
+//        WebElement video = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("video1")));
+//        System.out.println("🎥 Đã tìm thấy video");
+//
+//        // ✅ Giả lập click để "đánh lừa" trình duyệt là có user gesture
+//        video.click();
+//        Thread.sleep(500); // Thêm thời gian nhỏ để ổn định
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].play()", video);
+//        System.out.println("▶ Video đang phát");
+//
+//        // ❗ Yêu cầu toàn màn hình (có thể bị từ chối nếu không phải test local)
+//        try {
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].requestFullscreen()", video);
+//            System.out.println("🔎 Đã chuyển sang toàn màn hình");
+//        } catch (Exception e) {
+//            System.out.println("⚠ Không thể fullscreen (do trình duyệt chặn): " + e.getMessage());
+//        }
+//
+//        Thread.sleep(5000); // Chờ video phát trong 5 giây
+//
+//        // ✅ Thoát fullscreen (ESC)
+//        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+//        System.out.println("❎ Đã thoát chế độ toàn màn hình");
+//
+//        Thread.sleep(2000); // Chờ sau khi thoát fullscreen
+//
+//        // ✅ Dừng video
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].pause()", video);
+//        System.out.println("⏸ Video đã dừng");
+//
+//        // ✅ Kiểm tra trạng thái video
+//        Boolean isPaused = (Boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].paused;", video);
+//        Assert.assertTrue(isPaused, "❌ Video chưa dừng!");
+//        System.out.println("✅ Kiểm tra: video đã dừng thành công");
+//    }
+
     @Test
-    public void testSearchPlayToggleFullScreenAndReturnHomePage() throws InterruptedException {
-        driver.get("https://www.youtube.com");
+    public void testHTML5VideoPlayFullscreenAndPause() throws InterruptedException {
+        // Mở trang W3Schools có video HTML5
+        driver.get("https://www.w3schools.com/html/html5_video.asp");
 
-        WebElement searchBox;
-        try {
-            searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.name("search_query")));
-        } catch (Exception e) {
-            searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input#search")));
-        }
-        searchBox.sendKeys("LambdaTest tutorial");
-        searchBox.sendKeys(Keys.RETURN);
+        // Đợi video xuất hiện
+        WebElement video = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("video1")));
+        System.out.println("🎥 Đã tìm thấy video");
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("video-title")));
-        List<WebElement> videoResult = driver.findElements(By.id("video-title"));
-        Assert.assertFalse(videoResult.isEmpty(), "Không tìm thấy kết quả video!");
-        videoResult.get(0).click();
-        System.out.println("Video đã bắt đầu phát!");
+        // Giả lập hành vi người dùng: click video để "đánh lừa" trình duyệt
+        video.click();
 
-        // 🧪 Skip quảng cáo nếu có
-        try {
-            WebElement skipAd = wait.until(ExpectedConditions.elementToBeClickable(By.className("ytp-ad-skip-button")));
-            skipAd.click();
-            System.out.println("🎯 Quảng cáo đã được bỏ qua");
-        } catch (Exception ignored) {
-            System.out.println("✅ Không có quảng cáo để bỏ qua");
-        }
+        // Phát video
+        ((JavascriptExecutor) driver).executeScript("arguments[0].play()", video);
+        System.out.println("▶ Video đang phát");
 
-        // 🧪 Chờ player sẵn sàng
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("html5-video-player")));
+        // Phóng to toàn màn hình (fullscreen)
+        ((JavascriptExecutor) driver).executeScript("arguments[0].requestFullscreen()", video);
+        System.out.println("🔎 Đã chuyển sang toàn màn hình");
 
-        // ✅ Click fullscreen bằng JS
-        WebElement fullScreenButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".ytp-fullscreen-button")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", fullScreenButton);
-        System.out.println("Đã chuyển sang chế độ toàn màn hình");
+        // Chờ 5 giây trong chế độ fullscreen
         Thread.sleep(5000);
 
-        // ✅ Thoát fullscreen
-        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
-        System.out.println("Đã thoát chế độ toàn màn hình");
-        Thread.sleep(2000);
+        // Thoát chế độ fullscreen
+        ((JavascriptExecutor) driver).executeScript("document.exitFullscreen()");
+        System.out.println("❎ Đã thoát chế độ toàn màn hình");
 
-        driver.get("https://www.youtube.com");
-        System.out.println("Đã quay lại trang chủ");
+        Thread.sleep(2000); // Chờ 2 giây sau khi thoát fullscreen
+
+        // Dừng video
+        ((JavascriptExecutor) driver).executeScript("arguments[0].pause()", video);
+        System.out.println("⏸ Video đã dừng");
+
+        // Kiểm tra video đã dừng chưa
+        Boolean isPaused = (Boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].paused;", video);
+        Assert.assertTrue(isPaused, "❌ Video chưa dừng!");
+        System.out.println("✅ Kiểm tra: video đã dừng thành công");
     }
 
-        @AfterClass
+    @AfterClass
         public void tearDown() {
             System.out.println("✅ Session ID (xem trên LambdaTest Dashboard): " + ((RemoteWebDriver) driver).getSessionId());
             if (driver != null) {
